@@ -1,0 +1,2 @@
+1. Create a face recognition and tracking system
+2. along with object detection using yolo and facde tracking using sort
