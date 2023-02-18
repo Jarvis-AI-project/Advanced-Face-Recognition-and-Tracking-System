@@ -10,7 +10,18 @@ num_classes = 10
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
+# decrease the size of the images
 
+train_images = train_images[:1000]
+train_labels = train_labels[:1000]
+
+
+import cv2
+import numpy as np
+
+train_images = np.array([cv2.resize(img, (128, 128)) for img in train_images])
+test_images = np.array([cv2.resize(img, (128, 128)) for img in test_images])
+print(train_labels.shape)
 # Define the CNN model
 model = Sequential([
   Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
@@ -23,7 +34,7 @@ model = Sequential([
   MaxPooling2D((2, 2)),
   Flatten(),
   Dense(512, activation='relu'),
-  Dense(num_classes, activation='softmax')
+  Dense(1, activation='softmax')
 ])
 
 # Compile the model
@@ -41,4 +52,3 @@ model.save('face_recognition_model.h5')
 model = tf.keras.models.load_model('face_recognition_model.h5')
 
 # Use the model to predict the identity of a new face image
-# ...
