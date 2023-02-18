@@ -1,36 +1,30 @@
-from keras import layers
-from  keras.models import Sequential
+import cv2
+import os
+# Capture video from webcam and make dataset
+class MakeDataset():
+    def __init__(self):
+        self.video = cv2.VideoCapture(0)
+        self.count = 0
+        self.person_name = input("Enter person name: ")
+        self.num_images = int(input("Enter number of images: "))
+        self.path = "data/" + self.person_name
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
 
-model = Sequential([
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),
-    layers.Conv2D(32, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    
-    layers.Conv2D(128, (3, 3), activation='relu'),
-    layers.Conv2D(128, (3, 3), activation='relu'),
-    layers.Conv2D(128, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    
-    layers.Conv2D(256, (3, 3), activation='relu'),
-    layers.Conv2D(256, (3, 3), activation='relu'),
-    layers.Conv2D(256, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    
-    layers.Flatten(),
-    layers.Dense(512, activation='relu'),
-    layers.Dense(10, activation='sigmoid')
-])
+    def make(self):
+        for _ in range(self.num_images):
+            _, frame = self.video.read()
+            cv2.imshow("frame", frame)
+            if cv2.waitKey(1) & 0xFF == ord('s'):
+                self.count += 1
+                cv2.imwrite(self.path + "/" + str(self.count) + ".jpg", frame)
+                print("Image saved")
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-model.compile(optimizer='adam',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+    def __final__(self):
+        self.video.release()
+        cv2.destroyAllWindows()
 
-model.summary()
 
-# history = model.fit(train_generator, 
-#                     epochs=10, 
-#                     validation_data=val_generator)
+MakeDataset().make()
