@@ -1,10 +1,7 @@
-import cv2
-# Capture video from webcam and make dataset
 class MakeDataset():
     def __init__(self):
         import cv2
         import os
-
         self.video = cv2.VideoCapture(0)
         self.count = 0
         self.person_name = input("Enter person name: ")

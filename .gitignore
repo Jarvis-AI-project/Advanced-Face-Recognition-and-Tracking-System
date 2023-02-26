@@ -10,3 +10,4 @@ ImageClassification-main
 data
 */.DS_Store
 */.ipynb_checkpoints
+test.py

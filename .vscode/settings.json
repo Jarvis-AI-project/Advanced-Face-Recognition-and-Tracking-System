@@ -1,3 +1,18 @@
 {
-    "python.analysis.typeCheckingMode": "off"
+  "python.analysis.typeCheckingMode": "off",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "192.168.1.6",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "SQL-UNRAID",
+      "username": "root",
+      "database": "VGG_Face2",
+      "askForPassword": true
+    }
+  ]
 }
